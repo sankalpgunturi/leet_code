@@ -1,40 +1,18 @@
-# My Code
+# Source: https://leetcode.com/problems/roman-to-integer/discuss/1907667/Python-easy-to-read-solution-O(n)
+# Come back to this problem, after reading maps.
 
-from hashlib import new
 class Solution:
-    def romanToInt(self, s: str) -> int:
+    def __init__(self):
+        self.map = {"I": 1, "V": 5, "X": 10, "L": 50, "C": 100, "D": 500, "M": 1000}
 
-        my_list = list(s)
-        new_list = []
+    def romanToInt(self, roman: str) -> int:
+        acc_sum = 0
+        prev_num = 0
 
+        # iterate in reverse order
+        for single_roman in roman[::-1]:
+            num = self.map[single_roman]
+            acc_sum += num if prev_num <= num else -num  # roman number feature 
+            prev_num = num
 
-        for i in range(len(my_list)):
-            if my_list[i] == "M":
-                new_list.append(1000)
-            elif my_list[i] == "D":
-                new_list.append(500)
-            elif my_list[i] == "C":
-                new_list.append(100)
-            elif my_list[i] == "L":
-                new_list.append(50)
-            elif my_list[i] == "X":
-                new_list.append(10)
-            elif my_list[i] == "V":
-                new_list.append(5)      
-            elif my_list[i] == "I":
-                new_list.append(1)   
-
-        sum = 0
-        i = 0
-        while i < len(new_list):
-            if (((i + 1) < len(new_list)) and (new_list[i + 1] > new_list[i])):
-                sum = sum + (new_list[i + 1] - new_list[i])
-                i = i + 2
-            elif (((i + 1) < len(new_list))) and ((new_list[i + 1] <= new_list[i])):
-                sum = sum + new_list[i]
-                i = i + 1
-            elif (i == (len(new_list) - 1) and (new_list[i] <= new_list[i - 1])):
-                sum = sum + new_list[i]
-                break
-                
-        return sum
+        return acc_sum
