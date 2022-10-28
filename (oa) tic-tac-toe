@@ -1,0 +1,60 @@
+def solution(board):
+    count = 0
+    countX = 0
+    countO = 0
+    size = len(board)
+    for i in board:
+        size_of_i = len(i)
+
+        for k in range(0, size_of_i):
+            if i[:k] == "X":
+                countX += 1
+            elif k == "O":
+                countO += 1
+        print("row countX:", countX)
+        print("row countXO:", countO)
+
+        if countX == size_of_i:
+            return "X WIN"
+        elif countO == size_of_i:
+            return "O WIN"
+
+        print("here 1")
+        countX = 0
+        countO = 0
+        for count in range(0, size - 1):
+            if (i[:1] == "X"):
+                countX += 1
+            elif (i[:1] == "O"):
+                countO += 1
+
+        print("col countX:", countX)
+        print("col countXO:", countO)
+        if countX == size:
+            return "X WIN"
+        elif countO == size:
+            return "O WIN"
+
+        print("here 2")
+        countX = 0
+        countO = 0
+        for k in range(0, size):
+            if (i[:k] == "X"):
+                countX += 1
+            elif (i[:k] == "O"):
+                countO += 1
+
+        print("diag countX:", countX)
+        print("diag countXO:", countO)
+        if countX == size:
+            return "X WIN"
+        elif countO == size:
+            return "O WIN"
+
+    if "." in board:
+        print("Hi")
+        return "ONGOING"
+
+
+# print(solution(["XO", "X."]))
+print(solution(["X..", "XOX", "OOX"]))

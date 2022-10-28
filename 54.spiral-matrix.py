@@ -17,19 +17,29 @@ class Solution:
             spiral.append(matrix[i][j])
             j += 1
 
+        j -= 1
+        i += 1
         while (i < rows):
             spiral.append(matrix[i][j])
             i += 1
 
+        i -= 1
+        j -= 1
         while (j >= 0):
             spiral.append(matrix[i][j])
             j -= 1
-            
-        # needs work
+
+        i -= 1
+        j += 1
+
+        # # needs work
         while (i >= 0):
             spiral.append(matrix[i][j])
             i -= 1
 
+        # print(spiral)
+        # print("i: ", i)
+        # print("j: ", j)
         return spiral
 
 # 00
