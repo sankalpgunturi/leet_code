@@ -1,60 +1,52 @@
 def solution(board):
-    count = 0
-    countX = 0
-    countO = 0
     size = len(board)
     for i in board:
-        size_of_i = len(i)
-
-        for k in range(0, size_of_i):
-            if i[:k] == "X":
-                countX += 1
-            elif k == "O":
-                countO += 1
-        print("row countX:", countX)
-        print("row countXO:", countO)
-
-        if countX == size_of_i:
-            return "X WIN"
-        elif countO == size_of_i:
-            return "O WIN"
-
-        print("here 1")
-        countX = 0
-        countO = 0
-        for count in range(0, size - 1):
-            if (i[:1] == "X"):
-                countX += 1
-            elif (i[:1] == "O"):
-                countO += 1
-
-        print("col countX:", countX)
-        print("col countXO:", countO)
-        if countX == size:
-            return "X WIN"
-        elif countO == size:
-            return "O WIN"
-
-        print("here 2")
         countX = 0
         countO = 0
         for k in range(0, size):
-            if (i[:k] == "X"):
+            if i[k] == "X":
                 countX += 1
-            elif (i[:k] == "O"):
+            elif i[k] == "O":
                 countO += 1
 
-        print("diag countX:", countX)
-        print("diag countXO:", countO)
         if countX == size:
             return "X WIN"
         elif countO == size:
             return "O WIN"
 
-    if "." in board:
-        print("Hi")
-        return "ONGOING"
+    for i in range(len(board)):
+        countX = 0
+        countO = 0
+        for k in range(0, size):
+            if board[k][i] == "X":
+                countX += 1
+            elif board[k][i] == "O":
+                countO += 1
+
+        if countX == size:
+            return "X WIN"
+        elif countO == size:
+            return "O WIN"
+
+    for i in range(1, len(board)):
+        if board[i][i] != board[i - 1][i - 1]:
+            break
+    else:
+        if board[0][0] == "X":
+            return "X WIN"
+        elif board[0][0] == "O":
+            return "O WIN"
+
+    for i in range(1, len(board)):
+        if board[size - i - 1][size - i - 1] != board[size - i][size - i]:
+            break
+    else:
+        if board[0][size - 1] == "X":
+            return "X WIN"
+        elif board[0][size - 1] == "O":
+            return "O WIN"
+
+    return "ONGOING"
 
 
-# print(solution(["XO", "X."]))
-print(solution(["X..", "XOX", "OOX"]))
+print(solution(["XXXX", "OOOX", "OXOO", "XOXO"]))
