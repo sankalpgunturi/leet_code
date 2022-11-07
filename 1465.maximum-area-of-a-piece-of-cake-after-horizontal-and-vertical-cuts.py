@@ -32,5 +32,5 @@ class Solution:
         max_horizontal_difference = max(
             max_horizontal_difference, self.findDifferenceBetweenCuts(horizontalCuts[-1], h))
 
-        return max_vertical_difference * max_horizontal_difference
+        return int((max_vertical_difference * max_horizontal_difference) % 1000000007)
 # @lc code=end
