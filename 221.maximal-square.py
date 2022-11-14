@@ -10,30 +10,37 @@ class Solution:
         m = len(matrix)
         n = len(matrix[0])
 
-        def recursion(i, j):
-            matrix[i][j] = "0"
+        cache = [[0]*n]*m
+
+        def calculatePossibleArea(i, j):
             neighbours = {
-                (i, j+1),
                 (i+1, j),
+                (i, j+1),
                 (i+1, j+1)
             }
-
-            sum = 0
+            perfect_count = 0
             for i, j in neighbours:
-                if i < m and j < n and i >= 0 and j >= 0 and matrix[i][j] == "1":
-                    sum += recursion(i, j)
+                if i >= 0 and j >= 0 and i < m and j < n and matrix[i][j] == "1":
+                    perfect_count += 1
 
-            return sum + 1
+            if perfect_count == 3:
+                down = calculatePossibleArea(i+1, j)
+                right = calculatePossibleArea(i, j+1)
+                diag = calculatePossibleArea(i+1, j+1)
+                return 1 + min(down, right, diag)
+            else:
+                return 1
 
-        area = 0
+        max_area = 0
         for i in range(m):
             for j in range(n):
-                if matrix[i][j] == "1":
-                    temp = recursion(i, j)
-                    if area < temp:
-                        area = temp
+                if matrix[i][j] == "0":
+                    cache[i][j] = 0
+                else:
+                    cache[i][j] = calculatePossibleArea(i, j)
+                    if max_area < cache[i][j]:
+                        max_area = cache[i][j]
 
-        return area
-
+        return max_area ** 2
 
 # @lc code=end
